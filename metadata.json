@@ -1,0 +1,8 @@
+{
+  "name": "BuildSketch India - Structural Engineering Excellence",
+  "description": "A premium, professional website for BuildSketch, specializing in structural steel and timber detailing with industry-leading software and international standards.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

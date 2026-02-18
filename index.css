@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --safety-orange: #F39C12;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  color: #4A5568;
+  overflow-x: hidden;
+  background: #F8F9FA;
+  width: 100%;
+}
+.cursor-dot { width: 8px; height: 8px; background: var(--safety-orange); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); display: none; }
+.cursor-outline { width: 40px; height: 40px; border: 2px solid var(--safety-orange); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transition: transform 0.15s ease-out; transform: translate(-50%, -50%); display: none; }
+@media (hover: hover) and (pointer: fine) { .cursor-dot, .cursor-outline { display: block; } }
+.blueprint-overlay { background-image: radial-gradient(rgba(119, 141, 169, 0.1) 1px, transparent 1px); background-size: 30px 30px; }
+.hover-underline { position: relative; }
+.hover-underline::after { content: ''; position: absolute; bottom: -2px; left: 50%; width: 0; height: 2px; background: var(--safety-orange); transition: all 0.4s ease; }
+.hover-underline:hover::after { width: 100%; left: 0; }
