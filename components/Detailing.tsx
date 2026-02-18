@@ -9,16 +9,19 @@ export const Detailing: React.FC = () => {
     gsap.registerPlugin(ScrollTrigger);
 
 
-    gsap.from(".detailing-card", {
-      opacity: 0,
-      y: 40,
-      stagger: 0.2,
-      duration: 1,
-      scrollTrigger: {
-        trigger: ".detailing-section",
-        start: "top 80%",
+    gsap.fromTo(".detailing-card",
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.2,
+        duration: 1,
+        scrollTrigger: {
+          trigger: ".detailing-section",
+          start: "top 85%",
+        }
       }
-    });
+    );
   }, []);
 
   const features = [
@@ -75,7 +78,7 @@ export const Detailing: React.FC = () => {
             <div className="absolute -inset-4 bg-blueprint rounded-[40px] rotate-1"></div>
             <div className="relative rounded-[32px] overflow-hidden shadow-2xl aspect-square lg:aspect-auto lg:h-[600px]">
               <img
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1000"
+                src="/Specialisation.jpeg"
                 alt="Detailing Work"
                 className="w-full h-full object-cover"
               />

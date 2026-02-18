@@ -10,14 +10,14 @@ export const Capabilities: React.FC = () => {
     {
       icon: <Layers className="w-8 h-8" />,
       title: "Vertex BD",
-      desc: "Specialized steel and timber framing solutions for complex architectural structures.",
+      desc: "Specialized steel framing solutions for complex architectural structures.",
       tag: "Framing Experts"
     },
     {
       icon: <Box className="w-8 h-8" />,
       title: "MiTek Sapphire",
-      desc: "Advanced truss design and structural analysis ensuring maximum strength and stability.",
-      tag: "Truss Design"
+      desc: "Advanced Timber and Truss design and structural analysis ensuring maximum strength and stability.",
+      tag: "Timber Design"
     },
     {
       icon: <PenTool className="w-8 h-8" />,
@@ -34,7 +34,7 @@ export const Capabilities: React.FC = () => {
     {
       icon: <Globe className="w-8 h-8" />,
       title: "Global Projects",
-      desc: "Supporting construction firms internationally with remote engineering expertise.",
+      desc: "Supporting construction firms internationally with remote Drafting and Detailing expertise.",
       tag: "Worldwide"
     }
   ];
@@ -66,7 +66,7 @@ export const Capabilities: React.FC = () => {
         </div>
       </div>
 
-      <div 
+      <div
         ref={scrollRef}
         className="container mx-auto px-6 flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8"
       >
@@ -81,7 +81,7 @@ export const Capabilities: React.FC = () => {
               {item.desc}
             </p>
             <Link to="/contact" className="text-safety-orange font-roboto font-bold text-xs uppercase tracking-wider flex items-center gap-2 group/link">
-              Learn More 
+              Learn More
               <ChevronRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
             </Link>
           </div>

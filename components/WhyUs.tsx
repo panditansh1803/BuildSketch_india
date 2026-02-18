@@ -50,27 +50,49 @@ export const WhyUs: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {items.map((item, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className={`${item.grid} ${item.bg} p-12 rounded-[40px] hover-trigger hover-lift transition-all duration-500 flex flex-col justify-between border group relative overflow-hidden`}
             >
               {/* Highlight Sweep (8) */}
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              
-              <div className="relative z-10">
-                <div className="mb-8 p-5 inline-block rounded-2xl bg-white/10 group-hover:scale-110 transition-transform duration-500 shadow-xl">
+
+              <div className="relative z-10 text-center">
+                <div className="mb-6 p-5 inline-block rounded-2xl bg-white/10 group-hover:scale-110 transition-transform duration-500 shadow-xl">
                   {item.icon}
                 </div>
                 <h3 className="font-montserrat font-black text-2xl mb-4 leading-tight">
                   {item.title}
                 </h3>
-                <p className="font-inter text-sm leading-relaxed opacity-70 group-hover:opacity-100 transition-opacity">
+                <p className="font-inter text-sm leading-relaxed opacity-70 group-hover:opacity-100 transition-opacity max-w-md mx-auto">
                   {item.desc}
                 </p>
               </div>
 
-              <div className="mt-12 relative z-10 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest cursor-pointer group-hover:text-safety-orange transition-colors">
-                Explore Tech Stack <FastForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <div className="mt-8 relative z-10 flex flex-col items-center">
+                {/* Software Logos - only for first card */}
+                {idx === 0 && (
+                  <>
+                    <div className="w-full h-px bg-white/10 mb-8" />
+                    <div className="flex items-center justify-center gap-10 mb-8 w-full">
+                      {[
+                        { src: '/vertex.jpg', alt: 'Vertex BD' },
+                        { src: '/MItek_logo.webp', alt: 'MiTek Sapphire' },
+                        { src: '/Endurocad.png', alt: 'Endurocadd' },
+                      ].map((logo, i) => (
+                        <div key={i} className="flex flex-col items-center gap-3">
+                          <div className="w-24 h-24 bg-white/10 rounded-2xl p-4 flex items-center justify-center backdrop-blur-sm border border-white/10 group-hover:border-safety-orange/30 group-hover:bg-white/15 transition-all duration-300">
+                            <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain" />
+                          </div>
+                          <span className="font-roboto font-bold text-[9px] text-white/50 uppercase tracking-widest">{logo.alt}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
+                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest cursor-pointer group-hover:text-safety-orange transition-colors">
+                  Explore Tech Stack <FastForward className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
             </div>
           ))}

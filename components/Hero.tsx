@@ -102,12 +102,7 @@ export const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
       value: 'Vertex BD',
       sub: 'MiTek · Endurocadd',
     },
-    {
-      icon: <Globe className="w-4 h-4 text-safety-orange" />,
-      label: 'Markets',
-      value: '12+',
-      sub: 'Countries served',
-    },
+
   ];
 
   return (
@@ -185,7 +180,7 @@ export const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
               </div>
               <div className="overflow-hidden">
                 <h1 className="h-title-3 font-montserrat font-black text-[clamp(3rem,6vw,5.8rem)] text-white/15 leading-[0.88] tracking-[-0.03em]">
-                  Engineering
+                  Drafting
                 </h1>
               </div>
             </div>
@@ -230,7 +225,6 @@ export const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
                 { num: '15+', label: 'Projects', sub: 'Delivered' },
                 { num: '99%', label: 'Accuracy', sub: 'First-Pass' },
                 { num: '24h', label: 'Response', sub: 'Turnaround' },
-                { num: '12+', label: 'Markets', sub: 'Globally' },
               ].map((s, i) => (
                 <div
                   key={i}

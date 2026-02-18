@@ -15,7 +15,7 @@ import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { ServiceDetail } from './components/ServiceDetail';
 import { ServicesPage } from './components/ServicesPage';
-import { Services } from './components/Services';
+
 import { Blog } from './components/Blog';
 import { BlogPost } from './components/BlogPost';
 import { ContactPage } from './components/ContactPage';
@@ -54,7 +54,6 @@ const HomePage: React.FC<{ loading: boolean }> = ({ loading }) => {
       <div id="hero"><Hero loading={loading} /></div>
       <Capabilities />
       <div id="about"><About /></div>
-      <Services />
       <div id="detailing"><Detailing /></div>
       <WhyUs />
       <div id="process"><Process /></div>

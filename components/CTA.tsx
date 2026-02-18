@@ -45,9 +45,9 @@ export const CTA: React.FC = () => {
 
           <div className="space-y-12">
             {[
-              { val: '500+', label: 'BLUEPRINTS DELIVERED' },
-              { val: '100%', label: 'ON-SITE ACCURACY' },
-              { val: '12+', label: 'GLOBAL MARKETS' }
+              { val: '15+', label: 'PROJECTS DELIVERED' },
+              { val: '99.5%', label: 'FIRST-PASS ACCURACY' },
+              { val: '5+', label: 'TRUSTED REPEAT CLIENTS' }
             ].map((stat, i) => (
               <div key={i} className="flex items-center gap-10 group hover-trigger">
                 <div className="text-safety-orange font-montserrat font-black text-5xl md:text-6xl group-hover:scale-110 transition-transform">{stat.val}</div>
