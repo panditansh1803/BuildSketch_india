@@ -39,11 +39,13 @@ export const About: React.FC = () => {
             <div className="absolute -inset-4 bg-gradient-to-br from-safety-orange/10 via-steel-navy/10 to-safety-orange/5 rounded-3xl -rotate-2 group-hover:rotate-0 transition-transform duration-700" />
             {/* Accent border glow */}
             <div className="absolute -inset-1 bg-gradient-to-br from-safety-orange/30 via-transparent to-steel-navy/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[5]" />
-            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-steel-navy/80 to-obsidian">
               <img
                 src="/BluePrint.png"
                 alt="Engineering Work"
                 className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="eager"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-obsidian/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -68,12 +70,14 @@ export const About: React.FC = () => {
             <div className="absolute -inset-4 bg-gradient-to-br from-steel-navy/10 via-safety-orange/5 to-steel-navy/10 rounded-3xl rotate-2 group-hover:rotate-0 transition-transform duration-700" />
             {/* Accent border glow */}
             <div className="absolute -inset-1 bg-gradient-to-br from-steel-navy/20 via-transparent to-safety-orange/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-[5]" />
-            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-steel-navy/80 to-obsidian">
               <img
                 src="/BluePrint.png"
                 alt="Precision Detailing"
                 className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ objectPosition: 'center bottom' }}
+                loading="eager"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-obsidian/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
