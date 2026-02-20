@@ -14,7 +14,7 @@ export const ServicesPage: React.FC = () => {
 
       {/* ══════════════════════════════════════════════
           HERO
-      ══════════════════════════════════════════════ */}
+         ══════════════════════════════════════════════ */}
       <section className="bg-gradient-dark pt-40 pb-28 relative overflow-hidden">
         <div className="absolute inset-0 blueprint-overlay opacity-5 pointer-events-none" />
         {/* decorative geometry */}
@@ -154,22 +154,22 @@ export const ServicesPage: React.FC = () => {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-16 rounded-3xl overflow-hidden">
                 <div className="col-span-2 row-span-2 relative group overflow-hidden min-h-[280px] md:min-h-[420px]">
-                  <img src="/Structural photo front-2.png" alt="Structural Front" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img loading="lazy" src="/Structural photo front-2.png" alt="Structural Front" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/70 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6"><span className="bg-safety-orange text-white font-roboto font-bold text-[9px] uppercase tracking-widest px-4 py-1.5 rounded-full">Structural — Front</span></div>
                 </div>
                 <div className="relative group overflow-hidden min-h-[140px] md:min-h-[205px]">
-                  <img src="/Architectural front photo.png" alt="Architectural Front" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img loading="lazy" src="/Architectural front photo.png" alt="Architectural Front" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 to-transparent" />
                   <div className="absolute bottom-4 left-4"><span className="bg-white/10 backdrop-blur-sm text-white font-roboto font-bold text-[8px] uppercase tracking-widest px-3 py-1 rounded-full border border-white/20">Arch — Front</span></div>
                 </div>
                 <div className="relative group overflow-hidden min-h-[140px] md:min-h-[205px]">
-                  <img src="/Architectural side photo.png" alt="Architectural Side" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img loading="lazy" src="/Architectural side photo.png" alt="Architectural Side" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 to-transparent" />
                   <div className="absolute bottom-4 left-4"><span className="bg-white/10 backdrop-blur-sm text-white font-roboto font-bold text-[8px] uppercase tracking-widest px-3 py-1 rounded-full border border-white/20">Arch — Side</span></div>
                 </div>
                 <div className="col-span-2 relative group overflow-hidden min-h-[140px] md:min-h-[205px]">
-                  <img src="/Structural photo side-3.png" alt="Structural Side" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img loading="lazy" src="/Structural photo side-3.png" alt="Structural Side" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 to-transparent" />
                   <div className="absolute bottom-4 left-4"><span className="bg-safety-orange/80 backdrop-blur-sm text-white font-roboto font-bold text-[8px] uppercase tracking-widest px-3 py-1 rounded-full">Structural — Side</span></div>
                 </div>
@@ -248,22 +248,22 @@ export const ServicesPage: React.FC = () => {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-16 rounded-3xl overflow-hidden">
                 <div className="col-span-2 row-span-2 relative group overflow-hidden min-h-[280px] md:min-h-[420px]">
-                  <img src="/Structural framing photo-1.png" alt="Structural Isometric" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img loading="lazy" src="/Structural framing photo-1.png" alt="Structural Isometric" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/70 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6"><span className="bg-safety-orange text-white font-roboto font-bold text-[9px] uppercase tracking-widest px-4 py-1.5 rounded-full">Structural — Isometric</span></div>
                 </div>
                 <div className="relative group overflow-hidden min-h-[140px] md:min-h-[205px]">
-                  <img src="/Architectural side photo 2.png" alt="Architectural Side" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img loading="lazy" src="/Architectural side photo 2.png" alt="Architectural Side" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 to-transparent" />
                   <div className="absolute bottom-4 left-4"><span className="bg-white/10 backdrop-blur-sm text-white font-roboto font-bold text-[8px] uppercase tracking-widest px-3 py-1 rounded-full border border-white/20">Arch — Side</span></div>
                 </div>
                 <div className="relative group overflow-hidden min-h-[140px] md:min-h-[205px]">
-                  <img src="/Architectural top photo.png" alt="Architectural Isometric" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img loading="lazy" src="/Architectural top photo.png" alt="Architectural Isometric" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 to-transparent" />
                   <div className="absolute bottom-4 left-4"><span className="bg-white/10 backdrop-blur-sm text-white font-roboto font-bold text-[8px] uppercase tracking-widest px-3 py-1 rounded-full border border-white/20">Arch — Isometric</span></div>
                 </div>
                 <div className="col-span-2 relative group overflow-hidden min-h-[140px] md:min-h-[205px]">
-                  <img src="/Structural framing side photo-3.png" alt="Structural Side" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img loading="lazy" src="/Structural framing side photo-3.png" alt="Structural Side" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian/60 to-transparent" />
                   <div className="absolute bottom-4 left-4"><span className="bg-safety-orange/80 backdrop-blur-sm text-white font-roboto font-bold text-[8px] uppercase tracking-widest px-3 py-1 rounded-full">Structural — Side</span></div>
                 </div>

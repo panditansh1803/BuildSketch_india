@@ -82,7 +82,7 @@ export const WhyUs: React.FC = () => {
                       ].map((logo, i) => (
                         <div key={i} className="flex flex-col items-center gap-3">
                           <div className="w-24 h-24 bg-white/10 rounded-2xl p-4 flex items-center justify-center backdrop-blur-sm border border-white/10 group-hover:border-safety-orange/30 group-hover:bg-white/15 transition-all duration-300">
-                            <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain" />
+                            <img loading="lazy" src={logo.src} alt={logo.alt} className="w-full h-full object-contain" />
                           </div>
                           <span className="font-roboto font-bold text-[9px] text-white/50 uppercase tracking-widest">{logo.alt}</span>
                         </div>

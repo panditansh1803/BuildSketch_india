@@ -14,13 +14,17 @@ import { Process } from './components/Process';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { ServiceDetail } from './components/ServiceDetail';
-import { ServicesPage } from './components/ServicesPage';
-
 import { Blog } from './components/Blog';
 import { BlogPost } from './components/BlogPost';
 import { ContactPage } from './components/ContactPage';
 import { Preloader } from './components/Preloader';
 import { Detailing } from './components/Detailing';
+
+// Lazy loaded routes
+const LazyServicesPage = React.lazy(() => import('./components/ServicesPage').then(module => ({ default: module.ServicesPage })));
+const LazyBlog = React.lazy(() => import('./components/Blog').then(module => ({ default: module.Blog })));
+const LazyBlogPost = React.lazy(() => import('./components/BlogPost').then(module => ({ default: module.BlogPost })));
+const LazyContactPage = React.lazy(() => import('./components/ContactPage').then(module => ({ default: module.ContactPage })));
 
 const ScrollHandler: React.FC = () => {
   const { pathname, hash } = useLocation();
@@ -91,14 +95,16 @@ const App: React.FC = () => {
       <div className={`min-h-screen flex flex-col transition-opacity duration-1000 ${loading ? 'opacity-0' : 'opacity-100'}`}>
         <Header scrolled={scrolled} />
         <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<HomePage loading={loading} />} />
-            <Route path="/service/:serviceId" element={<ServiceDetail />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:postId" element={<BlogPost />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
+          <React.Suspense fallback={<div className="min-h-screen bg-obsidian flex items-center justify-center"><div className="w-10 h-10 border-4 border-safety-orange border-t-transparent rounded-full animate-spin"></div></div>}>
+            <Routes>
+              <Route path="/" element={<HomePage loading={loading} />} />
+              <Route path="/service/:serviceId" element={<ServiceDetail />} />
+              <Route path="/services" element={<LazyServicesPage />} />
+              <Route path="/blog" element={<LazyBlog />} />
+              <Route path="/blog/:postId" element={<LazyBlogPost />} />
+              <Route path="/contact" element={<LazyContactPage />} />
+            </Routes>
+          </React.Suspense>
         </main>
         <Footer />
       </div>

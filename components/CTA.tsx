@@ -6,27 +6,71 @@ import gsap from 'gsap';
 export const CTA: React.FC = () => {
   const [formData, setFormData] = useState({ fullName: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
-    document.querySelectorAll('.form-field').forEach((field: any) => {
-      field.addEventListener('focus', () => {
-        gsap.to(field.parentElement, { scale: 1.02, duration: 0.3 });
-      });
-      field.addEventListener('blur', () => {
-        gsap.to(field.parentElement, { scale: 1, duration: 0.3 });
-      });
+    const fields = document.querySelectorAll('.form-field');
+    const handleFocus = (e: Event) => {
+      gsap.to((e.target as HTMLElement).parentElement, { scale: 1.02, duration: 0.3 });
+    };
+    const handleBlur = (e: Event) => {
+      gsap.to((e.target as HTMLElement).parentElement, { scale: 1, duration: 0.3 });
+    };
+
+    fields.forEach((field) => {
+      field.addEventListener('focus', handleFocus);
+      field.addEventListener('blur', handleBlur);
     });
+
+    return () => {
+      fields.forEach((field) => {
+        field.removeEventListener('focus', handleFocus);
+        field.removeEventListener('blur', handleBlur);
+      });
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise(r => setTimeout(r, 2000));
-    setIsSubmitting(false);
-    setSubmitStatus('success');
+    setSubmitStatus('idle');
 
+    try {
+      const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
 
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New Structural Audit Request from ${formData.fullName}`,
+          from_name: formData.fullName,
+          email: formData.email,
+          message: formData.message,
+          to: 'BSdrafting@outlook.com'
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({ fullName: '', email: '', message: '' });
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
@@ -74,7 +118,7 @@ export const CTA: React.FC = () => {
 
               <div className="space-y-12">
                 <div className="relative group transition-all duration-300">
-                  <input required type="text" placeholder=" "
+                  <input required type="text" name="fullName" value={formData.fullName} onChange={handleChange} placeholder=" "
                     className="form-field peer w-full bg-transparent border-b border-white/20 px-0 py-5 text-white focus:outline-none focus:border-safety-orange transition-all font-inter" />
                   <label className="absolute left-0 top-5 text-steel-grey font-roboto font-bold text-[10px] uppercase tracking-widest transition-all pointer-events-none peer-focus:-top-4 peer-focus:text-safety-orange peer-[:not(:placeholder-shown)]:-top-4">
                     FULL NAME
@@ -82,7 +126,7 @@ export const CTA: React.FC = () => {
                 </div>
 
                 <div className="relative group transition-all duration-300">
-                  <input required type="email" placeholder=" "
+                  <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder=" "
                     className="form-field peer w-full bg-transparent border-b border-white/20 px-0 py-5 text-white focus:outline-none focus:border-safety-orange transition-all font-inter" />
                   <label className="absolute left-0 top-5 text-steel-grey font-roboto font-bold text-[10px] uppercase tracking-widest transition-all pointer-events-none peer-focus:-top-4 peer-focus:text-safety-orange peer-[:not(:placeholder-shown)]:-top-4">
                     EMAIL ADDRESS
@@ -90,7 +134,7 @@ export const CTA: React.FC = () => {
                 </div>
 
                 <div className="relative group transition-all duration-300">
-                  <textarea required rows={4} placeholder=" "
+                  <textarea required name="message" value={formData.message} onChange={handleChange} rows={4} placeholder=" "
                     className="form-field peer w-full bg-transparent border-b border-white/20 px-0 py-5 text-white focus:outline-none focus:border-safety-orange transition-all font-inter resize-none"></textarea>
                   <label className="absolute left-0 top-5 text-steel-grey font-roboto font-bold text-[10px] uppercase tracking-widest transition-all pointer-events-none peer-focus:-top-4 peer-focus:text-safety-orange peer-[:not(:placeholder-shown)]:-top-4">
                     PROJECT BRIEF
@@ -101,6 +145,9 @@ export const CTA: React.FC = () => {
               <button disabled={isSubmitting} className="btn-magnetic hover-trigger w-full bg-safety-orange hover:bg-safety-construction py-6 rounded-2xl flex items-center justify-center gap-4 text-white font-montserrat font-black text-[11px] uppercase tracking-[0.35em] shadow-orange-glow transition-all active:scale-95 disabled:opacity-50 group">
                 {isSubmitting ? <Loader2 className="animate-spin" /> : <>REQUEST FREE AUDIT <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>}
               </button>
+              {submitStatus === 'error' && (
+                <p className="text-red-400 text-sm text-center font-inter mt-4">Failed to send message. Please try again or email us directly.</p>
+              )}
             </form>
           )}
         </div>

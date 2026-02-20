@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const hasAnimated = useRef(false);
 
   useEffect(() => {
@@ -15,59 +15,77 @@ export const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
     if (loading || hasAnimated.current) return;
     hasAnimated.current = true;
 
+    let ctx: gsap.Context;
+
     // Small delay to ensure DOM elements are painted
     const timer = setTimeout(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-      tl.fromTo('.h-tag', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 })
-        .fromTo('.h-eyebrow', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.3')
-        .fromTo('.h-title-1', { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, '-=0.3')
-        .fromTo('.h-title-2', { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, '-=0.85')
-        .fromTo('.h-title-3', { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, '-=0.85')
-        .fromTo('.h-desc', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, '-=0.7')
-        .fromTo('.h-service-pill', { x: -10, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.07, duration: 0.6 }, '-=0.6')
-        .fromTo('.h-cta', { y: 16, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.12, duration: 0.7 }, '-=0.4')
-        .fromTo('.h-stat', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.4')
-        .fromTo('.h-img-wrap', { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1.4 }, '-=1.1')
-        .fromTo('.h-info-card', { y: 16, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.08, duration: 0.6 }, '-=0.6');
+        tl.fromTo('.h-tag', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 })
+          .fromTo('.h-eyebrow', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.3')
+          .fromTo('.h-title-1', { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, '-=0.3')
+          .fromTo('.h-title-2', { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, '-=0.85')
+          .fromTo('.h-title-3', { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, '-=0.85')
+          .fromTo('.h-desc', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, '-=0.7')
+          .fromTo('.h-service-pill', { x: -10, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.07, duration: 0.6 }, '-=0.6')
+          .fromTo('.h-cta', { y: 16, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.12, duration: 0.7 }, '-=0.4')
+          .fromTo('.h-stat', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.4')
+          .fromTo('.h-img-wrap', { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1.4 }, '-=1.1')
+          .fromTo('.h-info-card', { y: 16, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.08, duration: 0.6 }, '-=0.6');
 
-      /* Magnetic buttons */
-      document.querySelectorAll('.btn-magnetic').forEach((btn: any) => {
-        btn.addEventListener('mousemove', (e: MouseEvent) => {
-          const rect = btn.getBoundingClientRect();
-          const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
-          const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
-          gsap.to(btn, { x, y, duration: 0.3 });
+        /* Magnetic buttons */
+        const magneticBtns = containerRef.current?.querySelectorAll('.btn-magnetic') || [];
+        magneticBtns.forEach((btn: any) => {
+          btn._handleMouseMove = (e: MouseEvent) => {
+            const rect = btn.getBoundingClientRect();
+            const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+            const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+            gsap.to(btn, { x, y, duration: 0.3 });
+          };
+          btn._handleMouseLeave = () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+          };
+          btn.addEventListener('mousemove', btn._handleMouseMove);
+          btn.addEventListener('mouseleave', btn._handleMouseLeave);
         });
-        btn.addEventListener('mouseleave', () => {
-          gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+
+        /* Ticker */
+        const tickerEl = containerRef.current?.querySelector('.ticker-track') as HTMLElement | null;
+        if (tickerEl) {
+          const totalWidth = tickerEl.scrollWidth / 2;
+          gsap.fromTo(tickerEl,
+            { x: 0 },
+            { x: -totalWidth, duration: 28, ease: 'none', repeat: -1 }
+          );
+        }
+
+        /* Subtle parallax on image */
+        gsap.to('.h-img-inner', {
+          yPercent: 10,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.hero-section',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1,
+          },
         });
-      });
-
-      /* Ticker */
-      const tickerEl = document.querySelector('.ticker-track') as HTMLElement | null;
-      if (tickerEl) {
-        const totalWidth = tickerEl.scrollWidth / 2;
-        gsap.fromTo(tickerEl,
-          { x: 0 },
-          { x: -totalWidth, duration: 28, ease: 'none', repeat: -1 }
-        );
-      }
-
-      /* Subtle parallax on image */
-      gsap.to('.h-img-inner', {
-        yPercent: 10,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hero-section',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
+      }, containerRef);
     }, 100);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (ctx) ctx.revert();
+
+      const magneticBtns = containerRef.current?.querySelectorAll('.btn-magnetic') || [];
+      magneticBtns.forEach((btn: any) => {
+        if (btn._handleMouseMove) {
+          btn.removeEventListener('mousemove', btn._handleMouseMove);
+          btn.removeEventListener('mouseleave', btn._handleMouseLeave);
+        }
+      });
+    };
   }, [loading]);
 
   const tickerItems = [
@@ -106,7 +124,7 @@ export const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
   ];
 
   return (
-    <section className="hero-section relative bg-obsidian min-h-screen flex flex-col overflow-hidden">
+    <section ref={containerRef} className="hero-section relative bg-obsidian min-h-screen flex flex-col overflow-hidden">
 
       {/* ══ LOGO AS IMMERSIVE BACKGROUND ══ */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -162,27 +180,29 @@ export const Hero: React.FC<{ loading?: boolean }> = ({ loading = false }) => {
                 <span className="text-white/60 font-roboto font-bold text-[9px] tracking-[0.3em] uppercase">Live · India</span>
               </div>
               <div className="h-px flex-1 bg-white/[0.05] max-w-[120px]" />
-              <span className="h-eyebrow text-white/20 font-roboto font-bold text-[9px] uppercase tracking-[0.35em]">Est. 2022</span>
+              <span className="h-eyebrow text-white/20 font-roboto font-bold text-[9px] uppercase tracking-[0.35em]">Est. 2025</span>
             </div>
 
             {/* Stacked title */}
             <div className="mb-8">
-              <div className="overflow-hidden mb-1">
-                <h1 className="h-title-1 font-montserrat font-black text-[clamp(3rem,6vw,5.8rem)] text-white leading-[0.88] tracking-[-0.03em]">
-                  Structural
-                </h1>
-              </div>
-              <div className="overflow-hidden mb-1">
-                <h1 className="h-title-2 font-montserrat font-black text-[clamp(3rem,6vw,5.8rem)] leading-[0.88] tracking-[-0.03em] flex items-center gap-3">
-                  <span className="w-1.5 h-[0.9em] bg-safety-orange rounded-sm flex-shrink-0" />
-                  <span className="text-safety-orange">Precision</span>
-                </h1>
-              </div>
-              <div className="overflow-hidden">
-                <h1 className="h-title-3 font-montserrat font-black text-[clamp(3rem,6vw,5.8rem)] text-white/15 leading-[0.88] tracking-[-0.03em]">
-                  Drafting
-                </h1>
-              </div>
+              <h1 className="flex flex-col">
+                <span className="overflow-hidden mb-1">
+                  <span className="h-title-1 block font-montserrat font-black text-[clamp(3rem,6vw,5.8rem)] text-white leading-[0.88] tracking-[-0.03em]">
+                    Structural
+                  </span>
+                </span>
+                <span className="overflow-hidden mb-1">
+                  <span className="h-title-2 block font-montserrat font-black text-[clamp(3rem,6vw,5.8rem)] leading-[0.88] tracking-[-0.03em] flex items-center gap-3">
+                    <span className="w-1.5 h-[0.9em] bg-safety-orange rounded-sm flex-shrink-0" />
+                    <span className="text-safety-orange">Precision</span>
+                  </span>
+                </span>
+                <span className="overflow-hidden">
+                  <span className="h-title-3 block font-montserrat font-black text-[clamp(3rem,6vw,5.8rem)] text-white/15 leading-[0.88] tracking-[-0.03em]">
+                    Drafting
+                  </span>
+                </span>
+              </h1>
             </div>
 
             {/* Description */}

@@ -26,9 +26,8 @@ export const Header: React.FC<HeaderProps> = ({ scrolled }) => {
   };
 
   return (
-    <header className={`fixed top-0 w-full z-[1000] transition-all duration-500 ${
-      scrolled || isMenuOpen ? 'bg-steel-navy/90 py-3 shadow-2xl backdrop-blur-xl' : 'bg-transparent py-8'
-    }`}>
+    <header className={`fixed top-0 w-full z-[1000] transition-all duration-500 ${scrolled || isMenuOpen ? 'bg-steel-navy/90 py-3 shadow-2xl backdrop-blur-xl' : 'bg-transparent py-8'
+      }`}>
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo with Scale Hover (2) */}
         <Link to="/" className="flex items-center gap-3 group cursor-pointer hover-trigger transition-transform hover:scale-105">
@@ -37,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({ scrolled }) => {
           </div>
           <div className="flex flex-col">
             <span className="font-montserrat font-black text-2xl text-white tracking-tight leading-none">BUILDSKETCH</span>
-            <span className="font-roboto text-[9px] text-steel-grey uppercase tracking-[4px] mt-1 group-hover:text-safety-orange transition-colors">Precision Engineering</span>
+            <span className="font-roboto text-[9px] text-steel-grey uppercase tracking-[4px] mt-1 group-hover:text-safety-orange transition-colors">Precision Drafting</span>
           </div>
         </Link>
 
@@ -47,9 +46,8 @@ export const Header: React.FC<HeaderProps> = ({ scrolled }) => {
             <Link
               key={link.name}
               to={link.href}
-              className={`font-roboto font-bold text-[10px] uppercase tracking-[0.2em] transition-all hover-trigger hover-underline ${
-                isActive(link.href) ? 'text-safety-orange' : 'text-steel-grey hover:text-white'
-              }`}
+              className={`font-roboto font-bold text-[10px] uppercase tracking-[0.2em] transition-all hover-trigger hover-underline ${isActive(link.href) ? 'text-safety-orange' : 'text-steel-grey hover:text-white'
+                }`}
             >
               {link.name}
               {isActive(link.href) && <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-safety-orange"></span>}
@@ -71,23 +69,21 @@ export const Header: React.FC<HeaderProps> = ({ scrolled }) => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed top-0 left-0 w-full h-screen bg-obsidian transition-all duration-700 ${
-        isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-      } flex flex-col items-center justify-center gap-8`}>
+      <div className={`md:hidden fixed top-0 left-0 w-full h-screen bg-obsidian transition-all duration-700 ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+        } flex flex-col items-center justify-center gap-8`}>
         {navLinks.map((link, i) => (
           <Link
             key={link.name}
             to={link.href}
-            className={`font-montserrat font-black text-4xl uppercase tracking-tighter transition-all ${
-              isActive(link.href) ? 'text-safety-orange' : 'text-white/40 hover:text-white'
-            }`}
+            className={`font-montserrat font-black text-4xl uppercase tracking-tighter transition-all ${isActive(link.href) ? 'text-safety-orange' : 'text-white/40 hover:text-white'
+              }`}
             style={{ transitionDelay: `${i * 100}ms` }}
             onClick={() => setIsMenuOpen(false)}
           >
             {link.name}
           </Link>
         ))}
-        <button onClick={() => setIsMenuOpen(false)} className="absolute top-8 right-6 text-white"><X className="w-10 h-10"/></button>
+        <button onClick={() => setIsMenuOpen(false)} className="absolute top-8 right-6 text-white"><X className="w-10 h-10" /></button>
       </div>
     </header>
   );

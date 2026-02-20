@@ -44,7 +44,7 @@ export const About: React.FC = () => {
                 src="/BluePrint.png"
                 alt="Engineering Work"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                loading="eager"
+                loading="lazy"
               />
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-obsidian/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -75,7 +75,7 @@ export const About: React.FC = () => {
                 alt="Precision Detailing"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ objectPosition: 'center 30%' }}
-                loading="eager"
+                loading="lazy"
               />
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-obsidian/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

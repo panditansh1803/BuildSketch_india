@@ -6,25 +6,29 @@ export const Process: React.FC = () => {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.from(".process-line", {
-      scaleX: 0,
-      transformOrigin: "left center",
-      duration: 1.5,
-      scrollTrigger: {
-        trigger: ".process-section",
-        start: "top 70%",
-        end: "bottom bottom",
-        scrub: 1
-      }
+    const ctx = gsap.context(() => {
+      gsap.from(".process-line", {
+        scaleX: 0,
+        transformOrigin: "left center",
+        duration: 1.5,
+        scrollTrigger: {
+          trigger: ".process-section",
+          start: "top 70%",
+          end: "bottom bottom",
+          scrub: 1
+        }
+      });
+
+      gsap.to(".process-number", {
+        scale: 1.15,
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
     });
 
-    gsap.to(".process-number", {
-      scale: 1.15,
-      duration: 1.5,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut"
-    });
+    return () => ctx.revert();
   }, []);
 
   const steps = [

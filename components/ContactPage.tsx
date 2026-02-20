@@ -85,26 +85,42 @@ export const ContactPage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call (Server-side validation simulation)
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          // Simulation of a server-side error for specific test case if needed
-          if (formData.email === 'error@test.com') {
-            reject(new Error('Server-side validation failed.'));
-          } else {
-            resolve(true);
-          }
-        }, 1500);
+      // Real API call using Web3Forms
+      // The user needs to replace 'YOUR_WEB3FORMS_ACCESS_KEY' with their actual access key from web3forms.com
+      const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New Project Inquiry from ${formData.fullName}`,
+          from_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          projectType: formData.projectType,
+          message: formData.message,
+          to: 'BSdrafting@outlook.com'
+        })
       });
 
-      setSubmitStatus('success');
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        projectType: 'Residential Framing',
-        message: '',
-      });
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          projectType: 'Residential Framing',
+          message: '',
+        });
+      } else {
+        throw new Error(result.message || 'Server-side validation failed.');
+      }
     } catch (err) {
       setSubmitStatus('error');
     } finally {
@@ -140,7 +156,7 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <h3 className="font-montserrat font-black text-3xl text-obsidian mb-4">Message Sent!</h3>
                   <p className="text-charcoal mb-8 max-w-xs">Thank you for reaching out. Our design team will contact you within 24 hours.</p>
-                  <button 
+                  <button
                     onClick={() => setSubmitStatus('idle')}
                     className="px-8 py-3 bg-safety-orange text-white font-bold rounded-xl shadow-orange-glow hover:scale-105 transition-all"
                   >
@@ -150,7 +166,7 @@ export const ContactPage: React.FC = () => {
               )}
 
               <h2 className="font-montserrat font-black text-3xl text-obsidian mb-8">Send Us a Message</h2>
-              
+
               {submitStatus === 'error' && (
                 <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 text-red-600 animate-shake">
                   <AlertCircle className="w-5 h-5 flex-shrink-0" />
@@ -162,24 +178,24 @@ export const ContactPage: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-2">
                     <label className="font-roboto font-bold text-[10px] text-steel-grey uppercase tracking-widest ml-1">Full Name *</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleChange}
-                      placeholder="John Doe" 
+                      placeholder="John Doe"
                       className={`w-full bg-architectural border ${errors.fullName ? 'border-red-400 focus:border-red-500' : 'border-blueprint focus:border-safety-orange'} rounded-2xl px-6 py-4 focus:outline-none transition-colors font-inter`}
                     />
                     {errors.fullName && <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.fullName}</p>}
                   </div>
                   <div className="space-y-2">
                     <label className="font-roboto font-bold text-[10px] text-steel-grey uppercase tracking-widest ml-1">Email Address *</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john@example.com" 
+                      placeholder="john@example.com"
                       className={`w-full bg-architectural border ${errors.email ? 'border-red-400 focus:border-red-500' : 'border-blueprint focus:border-safety-orange'} rounded-2xl px-6 py-4 focus:outline-none transition-colors font-inter`}
                     />
                     {errors.email && <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.email}</p>}
@@ -189,12 +205,12 @@ export const ContactPage: React.FC = () => {
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-2">
                     <label className="font-roboto font-bold text-[10px] text-steel-grey uppercase tracking-widest ml-1">Phone Number *</label>
-                    <input 
-                      type="tel" 
+                    <input
+                      type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="+91 000 000 0000" 
+                      placeholder="+91 000 000 0000"
                       className={`w-full bg-architectural border ${errors.phone ? 'border-red-400 focus:border-red-500' : 'border-blueprint focus:border-safety-orange'} rounded-2xl px-6 py-4 focus:outline-none transition-colors font-inter`}
                     />
                     {errors.phone && <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.phone}</p>}
@@ -202,7 +218,7 @@ export const ContactPage: React.FC = () => {
                   <div className="space-y-2">
                     <label className="font-roboto font-bold text-[10px] text-steel-grey uppercase tracking-widest ml-1">Project Type</label>
                     <div className="relative">
-                      <select 
+                      <select
                         name="projectType"
                         value={formData.projectType}
                         onChange={handleChange}
@@ -214,7 +230,7 @@ export const ContactPage: React.FC = () => {
                         <option>Timber Trusses</option>
                       </select>
                       <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-steel-grey">
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>
+                        <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
                       </div>
                     </div>
                   </div>
@@ -222,19 +238,19 @@ export const ContactPage: React.FC = () => {
 
                 <div className="space-y-2">
                   <label className="font-roboto font-bold text-[10px] text-steel-grey uppercase tracking-widest ml-1">Your Message *</label>
-                  <textarea 
+                  <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    rows={6} 
-                    placeholder="Tell us about your project requirements..." 
+                    rows={6}
+                    placeholder="Tell us about your project requirements..."
                     className={`w-full bg-architectural border ${errors.message ? 'border-red-400 focus:border-red-500' : 'border-blueprint focus:border-safety-orange'} rounded-2xl px-6 py-4 focus:outline-none transition-colors font-inter`}
                   ></textarea>
                   {errors.message && <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {errors.message}</p>}
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={isSubmitting}
                   className={`w-full bg-safety-orange hover:bg-safety-construction text-white font-montserrat font-black text-sm uppercase tracking-widest py-5 rounded-2xl shadow-orange-glow transition-all hover:-translate-y-1 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed`}
                 >
@@ -294,11 +310,14 @@ export const ContactPage: React.FC = () => {
               <div className="pt-12 border-t border-blueprint">
                 <h4 className="font-montserrat font-bold text-obsidian text-xs uppercase tracking-widest mb-6">Follow Our Work</h4>
                 <div className="flex gap-4">
-                  {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
-                    <a key={i} href="#" className="w-12 h-12 bg-white rounded-xl shadow-sm border border-blueprint flex items-center justify-center text-steel-galvanized hover:bg-safety-orange hover:text-white transition-all">
-                      <Icon className="w-5 h-5" />
-                    </a>
-                  ))}
+                  {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => {
+                    const names = ['Facebook', 'Twitter', 'LinkedIn', 'Instagram'];
+                    return (
+                      <a key={i} href="#" aria-label={names[i]} className="w-12 h-12 bg-white rounded-xl shadow-sm border border-blueprint flex items-center justify-center text-steel-galvanized hover:bg-safety-orange hover:text-white transition-all focus-visible:ring-2 focus-visible:ring-safety-orange focus-visible:outline-none">
+                        <Icon className="w-5 h-5" />
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </div>
