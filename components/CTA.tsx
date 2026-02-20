@@ -36,7 +36,7 @@ export const CTA: React.FC = () => {
     setSubmitStatus('idle');
 
     try {
-      const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+      const WEB3FORMS_ACCESS_KEY = 'ee1aa3f5-5d03-420d-b049-6e6c13bc91e7';
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',

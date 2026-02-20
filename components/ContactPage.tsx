@@ -86,8 +86,7 @@ export const ContactPage: React.FC = () => {
 
     try {
       // Real API call using Web3Forms
-      // The user needs to replace 'YOUR_WEB3FORMS_ACCESS_KEY' with their actual access key from web3forms.com
-      const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+      const WEB3FORMS_ACCESS_KEY = 'ee1aa3f5-5d03-420d-b049-6e6c13bc91e7';
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
