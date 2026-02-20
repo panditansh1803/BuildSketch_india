@@ -25,18 +25,9 @@ export const Footer: React.FC = () => {
               <span className="font-montserrat font-black text-2xl text-white tracking-tighter">BUILDSKETCH</span>
             </Link>
             <p className="font-inter text-steel-grey text-sm leading-relaxed opacity-70">
-              Leading the global structural landscape with fabrication-ready precision detailing and engineering consulting.
+              Leading the global structural landscape with fabrication-ready precision detailing.
             </p>
-            <div className="flex gap-6">
-              {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => {
-                const names = ['Facebook', 'Twitter', 'LinkedIn', 'Instagram'];
-                return (
-                  <a key={i} href="#" aria-label={names[i]} className="w-12 h-12 bg-white/5 hover:bg-safety-orange rounded-xl flex items-center justify-center text-steel-grey hover:text-white hover-trigger transition-all hover-rotate-360 focus-visible:ring-2 focus-visible:ring-safety-orange focus-visible:outline-none">
-                    <Icon size={20} />
-                  </a>
-                );
-              })}
-            </div>
+
           </div>
 
           <div>

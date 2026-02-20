@@ -307,19 +307,7 @@ export const ContactPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-12 border-t border-blueprint">
-                <h4 className="font-montserrat font-bold text-obsidian text-xs uppercase tracking-widest mb-6">Follow Our Work</h4>
-                <div className="flex gap-4">
-                  {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => {
-                    const names = ['Facebook', 'Twitter', 'LinkedIn', 'Instagram'];
-                    return (
-                      <a key={i} href="#" aria-label={names[i]} className="w-12 h-12 bg-white rounded-xl shadow-sm border border-blueprint flex items-center justify-center text-steel-galvanized hover:bg-safety-orange hover:text-white transition-all focus-visible:ring-2 focus-visible:ring-safety-orange focus-visible:outline-none">
-                        <Icon className="w-5 h-5" />
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
